@@ -1,6 +1,11 @@
 # Identicon
 
-**TODO: Add description**
+Generates an identicon image for a given string
+
+## How to run
+
+Use mix test to run tests.
+Use mix docs, open doc/index.html to view documentation.
 
 ## Installation
 
