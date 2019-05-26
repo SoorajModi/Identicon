@@ -12,7 +12,9 @@ defmodule Identicon do
       Convert a string into an unique sequence of characters
   """
   def hash_input(input) do
-    :crypto.hash(:md5, input)
+    hex = :crypto.hash(:md5, input)
     |> :binary.bin_to_list
+
+    %Identicon.Image{hex: hex}    # Now returning struct
   end
 end

@@ -2,6 +2,7 @@
   <library name="ex_doc" type="mix">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/_build/dev/lib/ex_doc/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/test/lib/ex_doc/ebin" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
