@@ -6,3 +6,5 @@ end
 # Ie. cannot add hex2 property to this struct, but would be able to on a map
 
 # Has no ability to attach functions, can only hold primitive data
+
+# if we know properties we are going to be using, we use structs
