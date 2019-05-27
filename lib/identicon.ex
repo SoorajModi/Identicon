@@ -9,12 +9,9 @@ defmodule Identicon do
     |> pick_colour
   end
 
-  def pick_colour(image) do
-    #cannot do hex_list = image[0], have to use pattern matching: %Identicon.Image{hex: hex_list} = image
-    #[r,g,b] = hex_list <- does not work, must acknowledge the rest of the elements in hex_list: [r,g,b | _tail] = hex_list
-
-    %Identicon.Image{hex: [r,g,b | _tail]} = image
-    [r,g,b]
+  # As we receive the image as an arg, we are also pattern matching out of the arguement
+  def pick_colour(%Identicon.Image{hex: [r,g,b | _tail]} = image ) do #must use pattern matching, and acknowledge the rest of the elements in the struct (hence _tail)
+    %Identicon.Image{image | colour: {r,g,b}}
   end
 
   @doc """
