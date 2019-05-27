@@ -10,14 +10,22 @@ defmodule Identicon do
     |> build_grid
   end
 
+  @doc """
+     Builds the final element of image struct, the grid.
+  """
   def build_grid(%Identicon.Image{hex: hex} = image) do
-    hex
-    |> Enum.chunk_every(3)    # splits integer list into 3 part chunks
-    |> mirror_row
+    grid =
+      hex
+      |> Enum.chunk(3)    # splits integer list into 3 part chunks
+      |> Enum.map(&mirror_row/1)   # & means we are going to be passing a reference
+      |> List.flatten
+      |> Enum.with_index          # turns every element in list to two element tuple
+
+    %Identicon.Image{image | grid: grid}
   end
 
   @doc """
-     Appends the first two elements of an list to the end of the list
+     Appends the first two elements of a list to the end of the list
 
   ## Examples
 
@@ -29,17 +37,45 @@ defmodule Identicon do
     row ++ [second, first]
   end
 
-  # As we receive the image as an arg, we are also pattern matching out of the arguement
-  def pick_colour(%Identicon.Image{hex: [r,g,b | _tail]} = image ) do #must use pattern matching, and acknowledge the rest of the elements in the struct (hence _tail)
-    %Identicon.Image{image | colour: {r,g,b}}
+  @doc """
+     Takes the first three elements of the list and sets them equal to colour
+
+  ## Examples
+
+       iex> Identicon.pick_colour(%Identicon.Image{
+       ...> colour: nil,
+       ...> grid: nil,
+       ...> hex: [238, 36, 65, 25, 22, 177, 16, 117, 52, 29, 28, 154, 83, 190, 37, 86]
+       ...> })
+       %Identicon.Image{
+         colour: {238, 36, 65},
+         grid: nil,
+         hex: [238, 36, 65, 25, 22, 177, 16, 117, 52, 29, 28, 154, 83, 190, 37, 86]
+       }
+
+  """ # As we receive the image as an arg, we are also pattern matching out of the arguement
+  def pick_colour(
+        %Identicon.Image{hex: [r, g, b | _tail]} = image
+      ) do #must use pattern matching, and acknowledge the rest of the elements in the struct (hence _tail)
+    %Identicon.Image{image | colour: {r, g, b}}
   end
 
   @doc """
       Convert a string into an unique sequence of characters
+
+  ## Examples
+
+       iex> Identicon.hash_input("user_input")
+       %Identicon.Image{
+         colour: nil,
+         grid: nil,
+         hex: [238, 36, 65, 25, 22, 177, 16, 117, 52, 29, 28, 154, 83, 190, 37, 86]
+       }
+
   """
   def hash_input(input) do
     hex = :crypto.hash(:md5, input)
-    |> :binary.bin_to_list
+          |> :binary.bin_to_list
 
     %Identicon.Image{hex: hex}    # Now returning struct
   end
