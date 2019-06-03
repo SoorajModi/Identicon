@@ -1,12 +1,14 @@
 # Identicon
 
-Generates an identicon image for a given string
+Generates an identicon image for a given string.
 
 ## How to run
 
-Use '''mix test''' to run tests.
-Use '''mix docs''' and '''open doc/index.html''' to view documentation.
-Use '''iex -S mix''' to open Interactive Elixir.
+Use `mix test` to run tests.
+
+Use `mix docs` and `open doc/index.html` to view documentation.
+
+Use `iex -S mix` to open Interactive Elixir.
 
 ## Installation
 
