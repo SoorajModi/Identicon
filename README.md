@@ -1,6 +1,6 @@
 # Identicon
 
-Generates an identicon image for a given string.
+Generates an [Identicon](https://en.wikipedia.org/wiki/Identicon) image for a given string.
 
 ## How to run
 

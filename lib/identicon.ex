@@ -50,8 +50,6 @@ defmodule Identicon do
   ## Examples
 
        iex> Identicon.pick_colour(%Identicon.Image{
-       ...> colour: nil,
-       ...> grid: nil,
        ...> hex: [238, 36, 65, 25, 22, 177, 16, 117, 52, 29, 28, 154, 83, 190, 37, 86]
        ...> })
        %Identicon.Image{
