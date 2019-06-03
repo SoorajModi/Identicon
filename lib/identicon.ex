@@ -9,6 +9,21 @@ defmodule Identicon do
     |> pick_colour
     |> build_grid
     |> filter_odd_squares
+    |> build_pixel_map
+  end
+
+  def build_pixel_map(%Identicon.Image{grid: grid} = image) do
+    pixel_map = Enum.map grid, fn({_code, index}) ->
+      horizontal = rem(index, 5) * 50
+      vertical = div(index, 5) * 50
+
+      top_left = {horizontal, vertical}
+      bottom_right = {horizontal + 50, vertical + 50}
+
+      {top_left, bottom_right}
+    end
+
+    %Identicon.Image{image | pixel_map: pixel_map}
   end
 
   @doc """
@@ -68,7 +83,7 @@ defmodule Identicon do
   """ # As we receive the image as an arg, we are also pattern matching out of the arguement
   def pick_colour(
         %Identicon.Image{hex: [r, g, b | _tail]} = image
-      ) do #must use pattern matching, and acknowledge the rest of the elements in the struct (hence _tail)
+      ) do
     %Identicon.Image{image | colour: {r, g, b}}
   end
 

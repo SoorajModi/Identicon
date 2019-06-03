@@ -1,5 +1,5 @@
 defmodule Identicon.Image do
-  defstruct hex: nil, colour: nil, grid: nil
+  defstruct hex: nil, colour: nil, grid: nil, pixel_map: nil
 end
 
 # Structs are like maps but strictly enforce what can be placed in it
